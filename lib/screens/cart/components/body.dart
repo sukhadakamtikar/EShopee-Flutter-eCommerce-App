@@ -97,7 +97,7 @@ class _BodyState extends State<Body> {
           return Column(
             children: [
               DefaultButton(
-                text: "Proceed to Payment",
+                text: "Proceed to Redeem Offer",
                 press: () {
                   bottomSheetHandler = Scaffold.of(context).showBottomSheet(
                     (context) {
@@ -171,7 +171,7 @@ class _BodyState extends State<Body> {
                   snackbarMessage = "Product removed from cart successfully";
                   await refreshPage();
                 } else {
-                  throw "Coulnd't remove product from cart due to unknown reason";
+                  throw "Couldn't remove product from cart due to unknown reason";
                 }
               } on FirebaseException catch (e) {
                 Logger().w("Firebase Exception: $e");
@@ -355,7 +355,7 @@ class _BodyState extends State<Body> {
     shutBottomSheet();
     final confirmation = await showConfirmationDialog(
       context,
-      "This is just a Project Testing App so, no actual Payment Interface is available.\nDo you want to proceed for Mock Ordering of Products?",
+      "This is just a Offer Redeem Testing App so, no actual Redeem Interface is available.\nDo you want to continue viewing offers on Products?",
     );
     if (confirmation == false) {
       return;
@@ -377,9 +377,9 @@ class _BodyState extends State<Body> {
           addedProductsToMyProducts =
               await UserDatabaseHelper().addToMyOrders(orderedProducts);
           if (addedProductsToMyProducts) {
-            snackbarmMessage = "Products ordered Successfully";
+            snackbarmMessage = "Offer redeemed Successfully";
           } else {
-            throw "Could not order products due to unknown issue";
+            throw "Could not redeem offers on products due to unknown issue";
           }
         } on FirebaseException catch (e) {
           Logger().e(e.toString());
@@ -419,7 +419,7 @@ class _BodyState extends State<Body> {
       builder: (context) {
         return FutureProgressDialog(
           orderFuture,
-          message: Text("Placing the Order"),
+          message: Text("Redeeming the Offer"),
         );
       },
     );
